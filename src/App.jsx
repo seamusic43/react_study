@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Modal from './models/excel_modal'
 import Excel_Upload from './models/excel_upload'
 import './App.css'
+import CommentBox from './models/comment_test'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,14 +14,17 @@ function App() {
     <>
       <script src="http://localhost:8097"></script>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>React Study</h1>
+        {/* <Top>
+        </Top>
+        <LeftMenu>
+          <MenuList>
+            <MenuItem>Home</MenuItem>
+            <MenuItem>Introduce</MenuItem>
+            <MenuItem>Notice</MenuItem>
+          </MenuList>
+        </LeftMenu> */}
       </div>
-      <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -35,11 +39,11 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CommentBox></CommentBox>
+      {/* <Footer></Footer> */}
     </>
   )
 }
+
 
 export default App

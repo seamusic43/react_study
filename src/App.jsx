@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import j, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Modal from './models/excel_modal'
 import Excel_Upload from './models/excel_upload'
 import './App.css'
 import CommentBox from './models/comment_test'
+import ParentComponent from './components/lifecycle'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -40,6 +41,7 @@ function App() {
         </p>
       </div>
       <CommentBox></CommentBox>
+      <ParentComponent></ParentComponent>
       {/* <Footer></Footer> */}
     </>
   )

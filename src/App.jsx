@@ -1,11 +1,11 @@
-import j, { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react'
 import Modal from './models/excel_modal'
 import Excel_Upload from './models/excel_upload'
-import './App.css'
 import CommentBox from './models/comment_test'
 import ParentComponent from './components/lifecycle'
+import ReturnComponent from './components/return_test'
+import { CreateCustomer } from './components/CustomerInfo'
+import { Input } from './components/ui/input'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +16,8 @@ function App() {
       <script src="http://localhost:8097"></script>
       <div>
         <h1>React Study</h1>
+        <CreateCustomer />
+        <Input type="text" placeholder="Enter the name" />
         {/* <Top>
         </Top>
         <LeftMenu>
@@ -42,6 +44,10 @@ function App() {
       </div>
       <CommentBox></CommentBox>
       <ParentComponent></ParentComponent>
+      <div><h1>Cafe24 Shipping Issue Check</h1></div>
+      <div>
+        <ReturnComponent></ReturnComponent>
+      </div>
       {/* <Footer></Footer> */}
     </>
   )

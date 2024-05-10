@@ -1,11 +1,15 @@
-//const { fontFamily } = require("tailwindcss/defaultTheme")
-import { fontFamily } from "tailwindcss/defaultTheme"
-import plugin from "tailwindcss-animate"
 
+import plugin from "tailwindcss-animate"
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
-  content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "./src/**/*.{html,js}"],
+  content: [
+    './pages/**/*.{js,jsx}',
+    './components/**/*.{js,jsx}',
+    './app/**/*.{js,jsx}',
+    './src/**/*.{js,jsx}',
+  ],
+  prefix: "",
   theme: {
     container: {
       center: true,
@@ -51,12 +55,9 @@ export default {
         },
       },
       borderRadius: {
-        lg: `var(--radius)`,
-        md: `calc(var(--radius) - 2px)`,
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },
-      fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {
@@ -76,4 +77,3 @@ export default {
   },
   plugins: [plugin],
 }
-

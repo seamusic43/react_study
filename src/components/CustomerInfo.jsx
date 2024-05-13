@@ -16,15 +16,15 @@ function CreateCustomer() {
             <h1>Create Customer</h1>
             <form>
                 <div>
-                    <label>id : </label>
+                    <Label>id : </Label>
                     <Input type="text" placeholder="enter the id" />
                 </div>
                 <div>
-                    <label>company name: </label>
+                    <Label>company name: </Label>
                     <Input type="text" placeholder="enter the company name" />
                 </div>
                 <div>
-                    <label>email: </label>
+                    <Label>email: </Label>
                     <Input type="email" placeholder="enter the email" />
                 </div>
                 <div>
@@ -45,7 +45,7 @@ function CreateCustomer() {
                     </Select>
                 </div>
                 <div>
-                    <label>사업자번호</label>
+                    <Label>사업자번호</Label>
                     <Input type="text" placeholder="enter the business number" />
                 </div>
                 <button onClick={() => this.props.onCreate(this.state)}>Create</button>

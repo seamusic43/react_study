@@ -1,46 +1,71 @@
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import FileDrag from "@/pages/FileDrag";
 import { Link } from "react-router-dom";
+import { useCallback, useState } from "react";
+import Simple_Modal from "@/components/Simple_Modal";
+import RadioTest from "../RadioTest";
 
 export default function Login() {
+    const [autoLogin, setAutoLogin] = useState(false);
+    const [inputId, setInputId] = useState('');
+    const [inputPassword, setInputPassword] = useState('');
+
     const checkAvaliableId = (id) => {
         const idRegex = /^[a-zA-Z0-9!.-]+$/;
         return idRegex.test(id);
     }
-    const checkId = () => {
-        const inputId = '';
-        if (this.checkAvaliableId(inputId)) {
+    const checkId = useCallback((e) => {
+        setInputId(e.target.value);
+    }, []);
+    const checkPassword = useCallback((e) => {
+        setInputPassword(e.target.value);
+    }, []);
+    const handleLoginClick = (e) => {
+        e.preventDefault();
+        if (inputId === '') {
+            Simple_Modal('Error', 'Please enter the id');
+            alert('Please enter the id');
+            return false;
+        }
+        if (inputPassword === '') {
+            alert('Please enter the password');
+            return false;
+        }
+        if (autoLogin && !confirm('Do you want to save your ID and password?')) {
+            return false;
+        }
+        const formData = new FormData();
+        formData.append('id', inputId);
+        formData.append('password', inputPassword);
+        console.log('form data is', JSON.stringify(Object.fromEntries(formData), null, 2));
+
+
+        alert('login' + autoLogin + inputId + inputPassword);
+        // Login try Backend API 
+        if (checkAvaliableId(inputId)) {
             alert('Valid id');
         } else {
             alert('Invalid id');
         }
-    }
-    const checkPassword = () => {
-        alert('check password');
-    }
-    const handleLoginClick = () => {
-        alert('login');
-        // Login try Backend API 
-        checkId();
+        return false;
     }
 
     return (
         <div className="w-80">
             <h1>Login</h1>
-            <form>
+            <form name="login_form">
                 <div>
-                    <Input type="text" onChange={(e) => checkId()} placeholder="enter the id" />
+                    <Input type="text" value={inputId} onChange={checkId} placeholder="enter the id" />
                 </div>
                 <div>
-                    <Input type="password" onChange={(e) => checkPassword()} placeholder="enter the password" />
+                    <Input type="password" onChange={checkPassword} placeholder="enter the password" />
                 </div>
                 <Button onClick={handleLoginClick}>Login</Button>
             </form>
             <div className="flex flex-row justify-around">
                 <div className="flex">
-                    <Input type="checkbox" name="autoLogin" id="autoLogin" /><Label htmlFor="autoLogin">Auto Login</Label>
+                    <Input type="checkbox" name="autoLogin" id="autoLogin" checked={autoLogin} onChange={(e) => { setAutoLogin(e.target.checked) }} /><Label htmlFor="autoLogin">Auto Login</Label>
                 </div>
                 <Link to="/findId">Forgot ID</Link> |   <Link to="/findPassword">Forgot Password</Link>
             </div>
@@ -48,7 +73,7 @@ export default function Login() {
                 <span>계정이 없으신가요?</span>
                 <Link to="/signup">Sign Up</Link>
             </div>
-            <FileDrag />
+            <RadioTest />
         </div>
     );
 }

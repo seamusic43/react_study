@@ -2,9 +2,11 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef } from "react";
 import Simple_Modal from "@/components/Simple_Modal";
 import RadioTest from "../RadioTest";
+import FileDrag from "../FileDrag";
+import { ValidatableInputMethods, ValidatableInput } from "@/components/ui/ValidatableInput";
 
 export default function Login() {
     const [autoLogin, setAutoLogin] = useState(false);
@@ -21,6 +23,13 @@ export default function Login() {
     const checkPassword = useCallback((e) => {
         setInputPassword(e.target.value);
     }, []);
+
+    const ValidatableInputMethod = useRef < ValidatableInputMethods > (null);
+    const checkEmail = useCallback((e) => {
+        console.log('email is', e.target.value, e);
+        ValidatableInputMethod.current?.validate();
+        //setInputPassword(e.target.value);
+    }, [ValidatableInputMethod]);
     const handleLoginClick = (e) => {
         e.preventDefault();
         if (inputId === '') {
@@ -59,10 +68,13 @@ export default function Login() {
                     <Input type="text" value={inputId} onChange={checkId} placeholder="enter the id" />
                 </div>
                 <div>
+                    <Input ref={ValidatableInput} type="email" patten="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i" onChange={checkEmail} placeholder="enter the email" />
+                </div>
+                <div>
                     <Input type="password" onChange={checkPassword} placeholder="enter the password" />
                 </div>
                 <Button onClick={handleLoginClick}>Login</Button>
-            </form>
+            </form >
             <div className="flex flex-row justify-around">
                 <div className="flex">
                     <Input type="checkbox" name="autoLogin" id="autoLogin" checked={autoLogin} onChange={(e) => { setAutoLogin(e.target.checked) }} /><Label htmlFor="autoLogin">Auto Login</Label>
@@ -71,9 +83,10 @@ export default function Login() {
             </div>
             <div className="text-center">
                 <span>계정이 없으신가요?</span>
-                <Link to="/signup">Sign Up</Link>
+                <Link to="/join">Sign Up</Link>
             </div>
             <RadioTest />
-        </div>
+            <FileDrag />
+        </div >
     );
 }

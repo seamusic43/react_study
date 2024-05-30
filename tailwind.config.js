@@ -1,14 +1,20 @@
 import plugin from "tailwindcss-animate"
+import daisyui from "daisyui"
 /** @type {import('tailwindcss').Config} */
+import('tailwindcss').Config
 export default {
-  darkMode: ["class"],
+  //darkMode: ["class"],
   content: [
     './pages/**/*.{js,jsx}',
     './components/**/*.{js,jsx}',
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
   ],
+  daisyui: {
+    themes: ['light', 'emerald']
+  },
   prefix: "",
+  /*
   theme: {
     container: {
       center: true,
@@ -74,5 +80,6 @@ export default {
       },
     },
   },
-  plugins: [plugin],
+  */
+  plugins: [plugin, daisyui],
 }

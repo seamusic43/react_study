@@ -20,6 +20,14 @@ export default function CommonJoinForm() {
             receive_sms: false,
         },
     });
+    const [check_err, setCheckError] = useState({
+        id: '',
+        password: '',
+        email: '',
+        phone: '',
+        company_name: '',
+        business_number: '',
+    });
 
     const onChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -43,6 +51,7 @@ export default function CommonJoinForm() {
                 ...state,
                 [name]: value,
             });
+            //setCheckError({ id: 'test error' })
         }
     }
 
@@ -62,7 +71,7 @@ export default function CommonJoinForm() {
                         </>
                     )
                 } else {
-                    return <LabelInput key={index} property={property} state={state} onChange={onChange} />
+                    return <LabelInput key={index} property={property} state={state} onChange={onChange} errorMsg={check_err[property.name] ? check_err[property.name] : ''} />
                     /*
                     return (
                         <div key={index}>

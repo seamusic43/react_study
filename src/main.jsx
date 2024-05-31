@@ -4,7 +4,7 @@ import NotFound from './pages/404.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Login from './pages/common/Login.jsx'
-import Join from './pages/common/Join.jsx'
+import VendorJoin from './pages/VendorJoin.jsx'
 
 const routes = [{
   path: '/',
@@ -16,8 +16,8 @@ const routes = [{
   element: <Login />,
 },
 {
-  path: '/join',
-  element: <Join />,
+  path: '/vendor_join',
+  element: <VendorJoin />,
 },
 ];
 const router = createBrowserRouter(routes)

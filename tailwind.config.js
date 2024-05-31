@@ -14,7 +14,6 @@ export default {
     themes: ['light', 'emerald']
   },
   prefix: "",
-  /*
   theme: {
     container: {
       center: true,
@@ -80,6 +79,6 @@ export default {
       },
     },
   },
-  */
+  //*/
   plugins: [plugin, daisyui],
 }

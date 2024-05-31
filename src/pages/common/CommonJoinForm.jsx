@@ -1,0 +1,83 @@
+import { useState } from "react";
+import { JoinProperty } from "./JoinProperty";
+import LabelInput from "@/components/LabelInput";
+
+
+export default function CommonJoinForm() {
+    const [state, setState] = useState({
+        id: '',
+        password: '',
+        email: '',
+        phone: '',
+        company_name: '',
+        business_number: '',
+        all_agree: false,
+        service_agree: false,
+        privacy_agree: false,
+        promotion_agree: false,
+        receive_agree: {
+            receive_email: false,
+            receive_sms: false,
+        },
+    });
+
+    const onChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        if (type === 'checkbox') {
+            if (name in state.receive_agree) {
+                setState({
+                    ...state,
+                    receive_agree: {
+                        ...state.receive_agree,
+                        [name]: checked,
+                    }
+                });
+            } else {
+                setState({
+                    ...state,
+                    [name]: checked,
+                });
+            }
+        } else {
+            setState({
+                ...state,
+                [name]: value,
+            });
+        }
+    }
+
+
+    return (
+        <>
+            {JoinProperty.map((property, index) => {
+                console.log(property, index)
+                if (property.group) {
+                    return (
+                        <>
+                            <h1>{property.name}</h1>
+                            {property.group.map((group, index) => {
+                                console.log(group, group.name)
+                                return <LabelInput key={index} property={group} state={state[property.name]} onChange={onChange} />
+                            })}
+                        </>
+                    )
+                } else {
+                    return <LabelInput key={index} property={property} state={state} onChange={onChange} />
+                    /*
+                    return (
+                        <div key={index}>
+                            <div className="label">
+                                <span className="label-text">{property.name}</span>
+                            </div>
+                            <input type={property.type} onChange={onChange} placeholder={property.placeholder} value={state[property.name]} className="input input-bordered w-full max-w-xs" />
+                            <div className="label">
+                                <span className="label-text-alt">{property.placeholder}</span>
+                            </div>
+                        </div>
+                    )
+                    */
+                }
+            })}
+        </>
+    );
+}

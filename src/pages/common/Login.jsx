@@ -83,7 +83,7 @@ export default function Login() {
             </div>
             <div className="text-center">
                 <span>계정이 없으신가요?</span>
-                <Link to="/join">Sign Up</Link>
+                <Link to="/vendor_join">Sign Up</Link>
             </div>
             <RadioTest />
             <FileDrag />

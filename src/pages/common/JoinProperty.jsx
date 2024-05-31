@@ -10,5 +10,5 @@ export const JoinProperty = [
     { 'name': 'service_agree', 'type': 'checkbox', 'label': 'Service agree', required: true },
     { 'name': 'privacy_agree', 'type': 'checkbox', 'label': 'Privacy agree', required: true },
     { 'name': 'promotion_agree', 'type': 'checkbox', 'label': 'Promotion agree', },
-    { 'name': 'receive_agree', 'group': [{ 'name': 'email', 'type': 'checkbox', 'label': 'Receive email agree', }, { 'name': 'sms', 'type': 'checkbox', 'label': 'Receive sms agree', }] },
+    { 'name': 'receive_agree', 'group': [{ 'name': 'receive_email', 'type': 'checkbox', 'label': 'Receive email agree', }, { 'name': 'receive_sms', 'type': 'checkbox', 'label': 'Receive sms agree', }] },
 ];

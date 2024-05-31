@@ -15,8 +15,8 @@ export default function LabelInput({ index, property, state, onChange, errorMsg 
                 placeholder={property.type === 'text' ? property.placeholder : undefined}
                 defaultChecked={property.type === 'checkbox' ? state[property.name] : undefined}
                 value={state[property.name]}
-                className={`${property.type == 'checkbox' ? '' : 'input input-bordered w-full max-w-xs'}`} />
-            {errorMsg || true ?
+                className={`${property.type == 'checkbox' ? '' : 'input input-bordered w-full'}`} />
+            {errorMsg ?
                 <div className={`label pb-0 pt-1 ${errorMsg ? '' : 'invisible'} `}>
                     <span className="label-text-alt error_msg">{errorMsg}</span>
                 </div>

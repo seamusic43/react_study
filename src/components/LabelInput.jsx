@@ -1,10 +1,8 @@
+import React from 'react'
 
 
-<label className="label cursor-pointer">
-    <input type="checkbox" defaultChecked className="checkbox" />
-</label>
-
-export default function LabelInput({ index, property, state, onChange, errorMsg = '' }) {
+const LabelInput = ({ index, property, value, onChange, errorMsg = '' }) => {
+    console.log(property.name, value)
     return (
         <div key={index}>
             <div className="label">
@@ -12,9 +10,11 @@ export default function LabelInput({ index, property, state, onChange, errorMsg 
             </div>
             <input type={property.type}
                 onChange={onChange}
+                name={property.name}
+                pattern={property.pattern ? property.pattern : undefined}
                 placeholder={property.type === 'text' ? property.placeholder : undefined}
-                defaultChecked={property.type === 'checkbox' ? state[property.name] : undefined}
-                value={state[property.name]}
+                defaultChecked={property.type === 'checkbox' ? value : undefined}
+                value={value}
                 className={`${property.type == 'checkbox' ? '' : 'input input-bordered w-full'}`} />
             {errorMsg ?
                 <div className={`label pb-0 pt-1 ${errorMsg ? '' : 'invisible'} `}>
@@ -24,3 +24,6 @@ export default function LabelInput({ index, property, state, onChange, errorMsg 
         </div>
     )
 }
+
+const MemoizedLabelInput = React.memo(LabelInput);
+export default MemoizedLabelInput;

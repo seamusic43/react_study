@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Noto+Sans+KR:wght@100..900&display=swap');
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -73,4 +75,15 @@
   body {
     @apply bg-background text-foreground;
   }
+  .noto-sans-kr {
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  .nanum-brush-script-regular {
+  font-family: "Nanum Brush Script", cursive;
+  font-style: normal;
+}
+
+  
 }

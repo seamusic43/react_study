@@ -1,10 +1,14 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useReducer } from "react";
 import { JoinProperty } from "./JoinProperty";
 import LabelInput from "@/components/LabelInput";
+import { validate, error_display } from "./reducer_User";
+import { VendorJoinContext } from "@/pages/VendorJoin";
 
 
 export default function CommonJoinForm() {
-    const [state, setState] = useState({
+    //const [state, setState] = useState({
+    //console.log(validate, error_display, typeof validate, typeof error_display)
+    const [state, dispatch] = useReducer(validate, {
         id: '',
         password: '',
         email: '',
@@ -20,7 +24,8 @@ export default function CommonJoinForm() {
             receive_sms: false,
         },
     });
-    const [check_err, setCheckError] = useState({
+    //const [check_err, setCheckError] = useState({
+    const [check_err, errDispatch] = useReducer(error_display, {
         id: '',
         password: '',
         email: '',
@@ -29,22 +34,15 @@ export default function CommonJoinForm() {
         business_number: '',
     });
 
+    const { validate_business_number } = useContext(VendorJoinContext);
+
     const onChange = useCallback((e) => {
         const { name, value, type, checked, pattern } = e.target;
         if (type in ['checkbox', 'radio']) {
             if (name in state.receive_agree) {
-                setState((state) => ({
-                    ...state,
-                    receive_agree: {
-                        ...state.receive_agree,
-                        [name]: checked,
-                    }
-                }));
+                dispatch({ type: 'set_value', name: 'receive_agree', value: { [name]: checked } });
             } else {
-                setState((state) => ({
-                    ...state,
-                    [name]: checked,
-                }));
+                dispatch({ type: 'set_value', name, value: checked });
             }
         } else {
             console.log(name, value, type, checked, pattern);
@@ -53,23 +51,23 @@ export default function CommonJoinForm() {
                 console.log('regex', regex.test(value), value, regex, pattern)
                 if (!regex.test(value)) {
                     // The input value is invalid
-                    console.log(name, 'error pattern', pattern, value);
-                    setCheckError({ [name]: 'Invalid input' });
+                    errDispatch({ type: 'display_error', name, value: 'Invalid Input' });
                     //return;
                 } else {
-                    setCheckError({ [name]: 'OK' });
-                    console.log(name, 'okokok ');
+                    errDispatch({ type: 'display_error', name, value: 'OK' });
                 }
-
             }
-            setState((state) => ({
-                ...state,
-                [name]: value,
-            }));
-            //setCheckError({ id: 'test error' })
+            if (name == 'business_number' && value.length == 12) {
+                if (validate_business_number(value)) {
+
+                    errDispatch({ type: 'display_error', name, value: 'OK' });
+                } else {
+                    errDispatch({ type: 'display_error', name, value: 'Invalid Business Number' });
+                }
+            }
+            dispatch({ type: 'set_value', name, value });
         }
     }, []);
-
 
     return (
         <>
@@ -78,8 +76,8 @@ export default function CommonJoinForm() {
                     return (
                         <>
                             <h1>{property.name}</h1>
-                            {property.group.map((group, index) => {
-                                return <LabelInput key={index} property={group} value={state[property.name][group.name]} onChange={onChange} />
+                            {property.group.map((group, group_idx) => {
+                                return <LabelInput key={index + group_idx} property={group} value={state[property.name][group.name]} onChange={onChange} />
                             })}
                         </>
                     )

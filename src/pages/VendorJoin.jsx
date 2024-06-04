@@ -1,5 +1,8 @@
 import CommonJoinForm from "./common/CommonJoinForm"
 import PageTitle from "@/components/ui/PageTitle"
+import { createContext } from "react";
+
+export const VendorJoinContext = createContext();
 
 export default function VendorJoin() {
 
@@ -7,27 +10,7 @@ export default function VendorJoin() {
     /*
     const useReducer = (reducer, initialState) => {
     }
-
     */
-    const TryJoin = (e) => {
-        e.preventDefault();
-        console.log('TryJoin');
-        const form = document.forms.vendor_join_form;
-        const formData = new FormData(form);
-        for (let key of formData.keys()) {
-            if (key === 'business_number') {
-                if (validate_business_number(formData.get(key))) {
-                    console.log('business_number is valid');
-                } else {
-                    console.log('business_number is invalid');
-                    //setCheckError({ [key]: 'wrong businees number' });
-                    return false;
-                }
-            }
-            console.log(key, formData.get(key));
-        }
-    }
-
     const validate_business_number = (business_number) => {
         // Business number validation
         const regex = new RegExp('^[0-9]{3}-[0-9]{2}-[0-9]{5}$');
@@ -51,14 +34,39 @@ export default function VendorJoin() {
     }
 
 
+
+
+    const TryJoin = (e) => {
+        e.preventDefault();
+        console.log('TryJoin');
+        const form = document.forms.vendor_join_form;
+        const formData = new FormData(form);
+        for (let key of formData.keys()) {
+            if (key === 'business_number') {
+                if (validate_business_number(formData.get(key))) {
+                    console.log('business_number is valid');
+                } else {
+                    console.log('business_number is invalid');
+                    //setCheckError({ [key]: 'wrong businees number' });
+                    return false;
+                }
+            }
+            console.log(key, formData.get(key));
+        }
+    }
+
+
     return (
         <div className="flex justify-center">
             <div className="center-content min-w-100 w-96">
                 <PageTitle title="Vendor Join" />
-                <form name="vendor_join_form">
-                    <CommonJoinForm />
-                    <button onClick={TryJoin} className="btn btn-primary" type="submit">Join</button>
-                </form></div>
+                <VendorJoinContext.Provider value={{ validate_business_number }}>
+                    <form name="vendor_join_form">
+                        <CommonJoinForm />
+                        <button onClick={TryJoin} className="btn btn-primary" type="submit">Join</button>
+                    </form>
+                </VendorJoinContext.Provider>
+            </div>
         </div>
     )
 }

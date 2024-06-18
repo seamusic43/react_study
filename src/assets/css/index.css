@@ -83,7 +83,32 @@
   .nanum-brush-script-regular {
   font-family: "Nanum Brush Script", cursive;
   font-style: normal;
-}
+  }
 
+  .material-symbols-rounded.fi-full {
+    font-variation-settings:
+    "FILL" 1;
+  }
+  .material-symbols-rounded.fi-small {
+    font-size: 1rem !important;
+  }
+  .material-symbols-rounded.fi-large {
+    font-size: 2rem !important;
+  }
+  .pulse {
+  animation: pulse 3s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      font-variation-settings: 'wght' 100;
+    }
+    50% {
+      font-variation-settings: 'wght' 700;
+    }
+    100% {
+      font-variation-settings: 'wght' 100;
+    }
+  }
   
 }

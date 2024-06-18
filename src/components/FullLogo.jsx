@@ -1,9 +1,10 @@
 import Logo from "./Logo";
+import LogoMini from "./LogoMini";
 
 export default function FullLogo() {
     return (
         <div className="flex">
-            <img src="./public/coggiri_logo2_100.png" />
+            <LogoMini />
             <Logo />
         </div>
     );

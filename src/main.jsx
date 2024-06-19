@@ -5,6 +5,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Login from './pages/common/Login.jsx'
 import VendorJoin from './pages/VendorJoin.jsx'
+import MainLogin from './pages/MainLogin.jsx'
+import CommonLayout from './pages/CommonLayout.jsx'
 
 const routes = [{
   path: '/',
@@ -12,8 +14,17 @@ const routes = [{
   errorElement: <NotFound />
 },
 {
+  path: '/common',
+  element: <CommonLayout />,
+},
+{
   path: '/login',
   element: <Login />,
+},
+{
+  path: '/coggiri_login',
+  element: <MainLogin />,
+
 },
 {
   path: '/vendor_join',

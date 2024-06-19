@@ -1,6 +1,9 @@
 import CommonJoinForm from "./common/CommonJoinForm"
 import PageTitle from "@/components/ui/PageTitle"
 import { createContext } from "react";
+import { Button } from "@/components/ui/button";
+import CommonHeader from "./common/CommonHeader";
+import LeftMenu from "./common/LeftMenu";
 
 export const VendorJoinContext = createContext();
 
@@ -57,16 +60,20 @@ export default function VendorJoin() {
 
 
     return (
-        <div className="flex justify-center">
-            <div className="center-content min-w-100 w-96">
-                <PageTitle title="Vendor Join" />
-                <VendorJoinContext.Provider value={{ validate_business_number }}>
-                    <form name="vendor_join_form">
-                        <CommonJoinForm />
-                        <button onClick={TryJoin} className="btn btn-primary" type="submit">Join</button>
-                    </form>
-                </VendorJoinContext.Provider>
+        <>
+            <CommonHeader />
+            <LeftMenu />
+            <div className="flex justify-center">
+                <div className="center-content min-w-100 w-96">
+                    <PageTitle title="Vendor Join" />
+                    <VendorJoinContext.Provider value={{ validate_business_number }}>
+                        <form name="vendor_join_form">
+                            <CommonJoinForm />
+                            <Button onClick={TryJoin} type="submit">Join</Button>
+                        </form>
+                    </VendorJoinContext.Provider>
+                </div>
             </div>
-        </div>
+        </>
     )
 }

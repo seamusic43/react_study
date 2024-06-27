@@ -1,16 +1,19 @@
 import React from 'react'
 
 
-const LabelInput = ({ index, property, value, onChange, errorMsg = '' }) => {
-    console.log(property.name, value)
+const LabelInput = ({ index, property, value, onChange,name = '', errorMsg = '' }) => {
+    if (property.name) {
+        name = property.name;
+    }
+
     return (
         <div key={index}>
             <div className="label">
-                <span className="label-text">{property.name}</span>
+                <span className="label-text">{name}</span>
             </div>
             <input type={property.type}
                 onChange={onChange}
-                name={property.name}
+                name={name}
                 pattern={property.pattern ? property.pattern : undefined}
                 placeholder={property.type === 'text' ? property.placeholder : undefined}
                 defaultChecked={property.type === 'checkbox' ? value : undefined}

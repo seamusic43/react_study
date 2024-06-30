@@ -3,6 +3,7 @@ import { validate, error_display } from './common/reducer_User';
 import { Link } from 'react-router-dom';
 import PasswordInput from '@/components/ui/PasswordInput';
 import { Button } from '@/components/ui/button';
+import CenterHeader from '@/components/CenterHeader';
 
 
 export default function MainLogin() {
@@ -30,23 +31,19 @@ export default function MainLogin() {
         e.preventDefault();
         console.log('TryLogin');
         console.log(state);
+        // API Call to login
+        
     }, [state]);
 
     return (
         <div className="flex justify-center">
             <div className='center-content w-96'>
-            <div className='xl:mt-40 mt-10 mb-10    '>
-                <div className='flex mb-2'>
-                    <img src="./public/coggiri_logo2_100.png" />
-                    <img src="./public/logo_text.png" />
-                </div>
-                <span className='font-bold'>사업자끼리 함께. 코끼리 SCM</span>
-            </div>
+            <CenterHeader />
             <form name="main_login_form">
             <div className='pb-4'>
                 <div className='mb-2'>
                 <label className="label-text">아이디</label>
-                <input type="text" name="login_id" className='input input-bordered w-full' />
+                <input type="text" name="login_id" className='w-full input input-bordered' />
                 </div>
                 <div className='mb-2'>
                 <label className='label-text'>비밀번호</label>

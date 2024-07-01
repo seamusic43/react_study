@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PasswordInput from '@/components/ui/PasswordInput';
 import { Button } from '@/components/ui/button';
 import CenterHeader from '@/components/CenterHeader';
+import LabelInput from '@/components/LabelInput';
 
 
 export default function MainLogin() {
@@ -42,12 +43,10 @@ export default function MainLogin() {
         <form name="main_login_form">
           <div className='pb-4'>
             <div className='mb-2'>
-              <label className="label-text">아이디</label>
-              <input type="text" name="login_id" className='w-full input input-bordered' />
+              <LabelInput title="아이디" name="login_id" type="text" value={state.login_id} onChange={onChange} errorMsg={check_err.login_id} />
             </div>
             <div className='mb-2'>
-              <label className='label-text'>비밀번호</label>
-              <PasswordInput name="login_password" />
+              <PasswordInput title="비밀번호" name="login_password" />
             </div>
           </div>
           <div>

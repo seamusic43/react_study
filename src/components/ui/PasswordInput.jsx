@@ -1,8 +1,11 @@
+import { getPlaceholder, getPattern } from '@/lib/utils';
 import { useRef, useState } from 'react'
 
-export default function PasswordInput({ value, className, pattern, placeholder, onChange, name, errorMsg = '', ...props }) {
+export default function PasswordInput({ value, title, className, onChange, name, errorMsg = '', ...props }) {
   const [visible, setVisible] = useState(false);
   const inputRef = useRef();
+  const pattern = getPattern('password');
+  const placeholder = getPlaceholder('password');
   const toggleVisibility = () => {
     console.log('password input toggleVisibility');
     inputRef.current.type = visible ? 'password' : 'text';
@@ -19,11 +22,14 @@ export default function PasswordInput({ value, className, pattern, placeholder, 
   }
   return (
     <>
+      <div className="label">
+        <span className="label-text">{title}</span>
+      </div>
       <div className="flex items-center gap-2 input input-bordered">
         <input type="password"
           onChange={onChange}
           name={name}
-          pattern={pattern ? pattern : undefined}
+          pattern={pattern}
           placeholder={placeholder}
           value={value}
           ref={inputRef}

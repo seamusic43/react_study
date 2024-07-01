@@ -34,14 +34,8 @@ export default function ResetPassword() {
             (영어, 숫자, 특수문자 조합 8자 이상)
           </div>
           <form name="reset_password_form">
-            <div className='mb-2'>
-              <label className='pb-2 label-text'>비밀번호</label>
-              <PasswordInput name="password" type="password" />
-            </div>
-            <div className='mb-2'>
-              <label className='pb-2 label-text'>비밀번호 확인</label>
-              <PasswordInput name="re_password" type="password" />
-            </div>
+            <PasswordInput name="password" title="비밀번호" type="password" />
+            <PasswordInput name="re_password" title="비밀번호 확인" type="password" />
             <Button onClick={onSubmit} className="w-full mt-4 mb-2" size="lg">변경하기</Button>
           </form>
         </div>

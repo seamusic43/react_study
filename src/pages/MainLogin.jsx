@@ -7,59 +7,59 @@ import CenterHeader from '@/components/CenterHeader';
 
 
 export default function MainLogin() {
-    const [state, dispatch] = useReducer(validate, {
-        login_id: '',
-        password: '',
-    });
-    const [check_err, errDispatch] = useReducer(error_display, {
-        login_id: '',
-        password: '',
-    });
-    const onChange = useCallback((e) => {
-        const { name, value, type, checked, pattern } = e.target;
-            if (pattern) {
-                const regex = new RegExp(pattern);
-                if (!regex.test(value)) {
-                    errDispatch({ type: 'display_error', name, value: 'Invalid Input' });
-                } else {
-                    errDispatch({ type: 'display_error', name, value: 'OK' });
-                }
-            }
-            dispatch({ type: 'set_value', name, value });
-    }, []);
-    const tryLogin = useCallback((e) => {
-        e.preventDefault();
-        console.log('TryLogin');
-        console.log(state);
-        // API Call to login
-        
-    }, [state]);
+  const [state, dispatch] = useReducer(validate, {
+    login_id: '',
+    password: '',
+  });
+  const [check_err, errDispatch] = useReducer(error_display, {
+    login_id: '',
+    password: '',
+  });
+  const onChange = useCallback((e) => {
+    const { name, value, type, checked, pattern } = e.target;
+    if (pattern) {
+      const regex = new RegExp(pattern);
+      if (!regex.test(value)) {
+        errDispatch({ type: 'display_error', name, value: 'Invalid Input' });
+      } else {
+        errDispatch({ type: 'display_error', name, value: 'OK' });
+      }
+    }
+    dispatch({ type: 'set_value', name, value });
+  }, []);
+  const tryLogin = useCallback((e) => {
+    e.preventDefault();
+    console.log('TryLogin');
+    console.log(state);
+    // API Call to login
 
-    return (
-        <div className="flex justify-center">
-            <div className='center-content w-96'>
-            <CenterHeader />
-            <form name="main_login_form">
-            <div className='pb-4'>
-                <div className='mb-2'>
-                <label className="label-text">아이디</label>
-                <input type="text" name="login_id" className='w-full input input-bordered' />
-                </div>
-                <div className='mb-2'>
-                <label className='label-text'>비밀번호</label>
-                <PasswordInput name="login_password"/>
-                </div>
+  }, [state]);
+
+  return (
+    <div className="flex justify-center">
+      <div className='center-content w-96'>
+        <CenterHeader />
+        <form name="main_login_form">
+          <div className='pb-4'>
+            <div className='mb-2'>
+              <label className="label-text">아이디</label>
+              <input type="text" name="login_id" className='w-full input input-bordered' />
             </div>
-            <div>
-                <Button onClick={tryLogin} className="w-full mb-2" size="lg">로그인</Button>
-                <Button className="w-full" size="lg" variant="secondary"><Link to="/join">가입하기</Link></Button>
-                
+            <div className='mb-2'>
+              <label className='label-text'>비밀번호</label>
+              <PasswordInput name="login_password" />
             </div>
-            <div>
-                <Link to="/find_id" className='text-sm'>아이디 찾기</Link> / <Link to="/find_pw" className='text-sm'>비밀번호 찾기</Link>
-            </div>
-            </form>
-            </div>
-        </div>
-    );
+          </div>
+          <div>
+            <Button onClick={tryLogin} className="w-full mb-2" size="lg">로그인</Button>
+            <Button className="w-full" size="lg" variant="secondary"><Link to="/join">가입하기</Link></Button>
+
+          </div>
+          <div>
+            <Link to="/find_id" className='text-sm'>아이디 찾기</Link> / <Link to="/find_pw" className='text-sm'>비밀번호 찾기</Link>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }

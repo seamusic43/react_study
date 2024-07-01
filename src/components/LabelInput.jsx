@@ -1,31 +1,35 @@
 import React from 'react'
+import { getPattern, getPlaceholder } from '@/lib/utils';
 
 
-const LabelInput = ({ index, property, value, onChange,name = '', errorMsg = '' }) => {
-    if (property.name) {
-        name = property.name;
-    }
+const LabelInput = ({ name, type, value, onChange, errorMsg = '' }) => {
+  const inputRef = React.useRef();
+  const pattern = getPattern(name);
+  const placeholder = getPlaceholder(name);
 
-    return (
-        <div key={index}>
-            <div className="label">
-                <span className="label-text">{name}</span>
-            </div>
-            <input type={property.type}
-                onChange={onChange}
-                name={name}
-                pattern={property.pattern ? property.pattern : undefined}
-                placeholder={property.type === 'text' ? property.placeholder : undefined}
-                defaultChecked={property.type === 'checkbox' ? value : undefined}
-                value={value}
-                className={`${property.type == 'checkbox' ? '' : 'input input-bordered w-full'}`} />
-            {errorMsg ?
-                <div className={`label pb-0 pt-1 ${errorMsg ? '' : 'invisible'} `}>
-                    <span className="label-text-alt error_msg">{errorMsg}</span>
-                </div>
-                : ''}
+  return (
+    <div>
+      <div className="label">
+        <span className="label-text">{name}</span>
+      </div>
+      <input type={type}
+        onChange={onChange}
+        name={name}
+        ref={inputRef}
+        onFocus={() => inputRef.current.classList.add('input-primary')}
+        onBlur={() => inputRef.current.classList.remove('input-primary')}
+        pattern={pattern}
+        placeholder={placeholder}
+        defaultChecked={type === 'checkbox' ? value : undefined}
+        value={value}
+        className={`${type == 'checkbox' ? '' : 'input input-bordered w-full'}`} />
+      {errorMsg ?
+        <div className={`label pb-0 pt-1 ${errorMsg ? '' : 'invisible'} `}>
+            <span className="label-text-alt error_msg">{errorMsg}</span>
         </div>
-    )
+        : ''}
+    </div>
+  )
 }
 
 const MemoizedLabelInput = React.memo(LabelInput);

@@ -9,6 +9,15 @@ export default function PasswordInput ({ value, className, pattern, placeholder,
         inputRef.current.type = visible ? 'password' : 'text';
         setVisible(!visible);
     }
+    const togglefocus = () => {
+        console.log('password input togglefocus');
+        //inputRef.current.addClass('input-primary');
+        inputRef.current.parentNode.classList.add('input-primary');
+        console.log(inputRef.current.classList)
+    }
+    const toggleBlur = () => {
+        inputRef.current.parentNode.classList.remove('input-primary');
+    }
     return (
         <>
             <div  className="input input-bordered flex items-center gap-2">
@@ -19,6 +28,8 @@ export default function PasswordInput ({ value, className, pattern, placeholder,
                 placeholder={placeholder}
                 value={value}
                 ref={inputRef}
+                onFocus={togglefocus}
+                onBlur={toggleBlur}
                 className={`${className ? className : ''} w-full`} />
                 <span className="material-symbols-rounded fi-full" onClick={toggleVisibility}>visibility{visible? '_off' : ''}</span>
                 </div>

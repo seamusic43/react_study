@@ -9,6 +9,7 @@ import MainLogin from './pages/MainLogin.jsx'
 import CommonLayout from './pages/CommonLayout.jsx'
 import FindPassword from './pages/FindPassword.jsx'
 import FindId from './pages/FindId.jsx'
+import ResetPassword from './pages/ResetPassword.jsx'
 
 const routes = [{
   path: '/',
@@ -31,6 +32,10 @@ const routes = [{
 {
   path: '/find_pw',
   element: <FindPassword />,
+},
+{
+  path: '/reset_pw',
+  element: <ResetPassword />,
 },
 {
   path: '/find_id',

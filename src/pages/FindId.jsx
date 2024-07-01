@@ -35,7 +35,7 @@ export default function FindId() {
           </form>
         </div>
       </div>
-      {isModalOpen && <MiniModal id="send_ok" open={isModalOpen} onClose={() => setIsModalOpen(false\)} modal_title="메일 전송 완료" description="이메일로 아이디를 전송했습니다." button_text="확인" button_color="bg-primary" />}
+      {isModalOpen && <MiniModal id="send_ok" open={isModalOpen} onClose={() => setIsModalOpen(false)} modal_title="메일 전송 완료" description="이메일로 아이디를 전송했습니다." button_text="확인" button_color="bg-primary" />}
     </>
   );
 } 

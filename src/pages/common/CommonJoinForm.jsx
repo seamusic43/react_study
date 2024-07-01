@@ -70,21 +70,21 @@ export default function CommonJoinForm() {
   }, []);
 
   return (
-    <div>
+    <>
       {JoinProperty.map((property, index) => {
         if (property.group) {
           return (
             <>
               <h1>{property.name}</h1>
               {property.group.map((group, group_idx) => {
-                return <LabelInput key={group_idx} name={group.name} type={group.type} value={state[property.name][group.name]} onChange={onChange} />
+                return <LabelInput key={index + group_idx} name={group.name} type={group.type} value={state[property.name][group.name]} onChange={onChange} />
               })}
             </>
           )
         } else {
-          return <LabelInput key={index} name={property.name} value={state[property.name]} onChange={onChange} errorMsg={check_err[property.name] ? check_err[property.name] : ''} />
+          return <LabelInput key={index} name={property.name} type={property.type} value={state[property.name]} onChange={onChange} errorMsg={check_err[property.name] ? check_err[property.name] : ''} />
         }
       })}
-    </div>
+    </>
   );
 }

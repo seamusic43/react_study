@@ -7,6 +7,8 @@ import Login from './pages/common/Login.jsx'
 import VendorJoin from './pages/VendorJoin.jsx'
 import MainLogin from './pages/MainLogin.jsx'
 import CommonLayout from './pages/CommonLayout.jsx'
+import FindPassword from './pages/FindPassword.jsx'
+import FindId from './pages/FindId.jsx'
 
 const routes = [{
   path: '/',
@@ -25,6 +27,14 @@ const routes = [{
   path: '/coggiri_login',
   element: <MainLogin />,
 
+},
+{
+  path: '/find_pw',
+  element: <FindPassword />,
+},
+{
+  path: '/find_id',
+  element: <FindId />,
 },
 {
   path: '/vendor_join',

@@ -2,19 +2,23 @@ import React from 'react'
 import { getPattern, getPlaceholder } from '@/lib/utils';
 
 
-const LabelInput = ({ name, title, type, value, onChange, errorMsg = '', ...props }) => {
+const LabelInput = ({ name, title, type, value, onChange, errorMsg = '', children, ...props }) => {
   const inputRef = React.useRef();
   const pattern = getPattern(name);
   const placeholder = getPlaceholder(name);
   if (!title) {
     title = name;
   }
+  const is_after_title = ['checkbox', 'radio'].includes(type) || children;
+  const title_html = (
+    <div className="label">
+      <span className="label-text">{title}</span>
+    </div>
+  );
 
   return (
-    <div>
-      <div className="label">
-        <span className="label-text">{title}</span>
-      </div>
+    <div className={props.areaClass}>
+      {is_after_title ? '' : title_html}
       <input type={type}
         onChange={onChange}
         name={name}
@@ -25,7 +29,8 @@ const LabelInput = ({ name, title, type, value, onChange, errorMsg = '', ...prop
         placeholder={placeholder}
         defaultChecked={type === 'checkbox' ? value : undefined}
         value={value}
-        className={`${type == 'checkbox' ? '' : 'input input-bordered w-full'} ${props.className}`} />
+        className={`${type === 'checkbox' ? 'mr-2' : 'input input-bordered w-full'} ${props.className}`} />
+      {is_after_title ? (children ? children : title_html) : ''}
       {errorMsg ?
         <div className={`label pb-0 pt-1 ${errorMsg ? '' : 'invisible'} `}>
           <span className="label-text-alt error_msg">{errorMsg}</span>

@@ -1,7 +1,8 @@
-import CommonJoinForm from "./common/CommonJoinForm"
-import PageTitle from "@/components/ui/PageTitle"
 import { createContext } from "react";
 import { Button } from "@/components/ui/button";
+import CenterHeader from "@/components/CenterHeader";
+import PasswordInput from "@/components/ui/PasswordInput";
+import LabelInput from "@/components/LabelInput";
 
 export const VendorJoinContext = createContext();
 
@@ -56,16 +57,35 @@ export default function VendorJoin() {
     }
   }
 
+  const checkBusinessNumber = (e) => {
+  }
 
   return (
     <>
       <div className="flex justify-center">
-        <div className="center-content min-w-100 w-96">
-          <PageTitle title="Vendor Join" />
+        <div className="center-content min-w-100 w-96 mb-8">
+          <CenterHeader />
           <VendorJoinContext.Provider value={{ validate_business_number }}>
             <form name="vendor_join_form">
-              <CommonJoinForm />
-              <Button onClick={TryJoin} type="submit">Join</Button>
+              <LabelInput title="아이디" name="id" type="text" />
+              <PasswordInput title="비밀번호" name="password" />
+              <PasswordInput title="비밀번호 확인" name="re_password" />
+              <LabelInput title="이메일" name="email" type="text" />
+              <LabelInput title="휴대폰번호" name="phone" type="phone" />
+              <LabelInput title="회사명" name="company_name" type="text" />
+              <div className="flex">
+                <LabelInput title="사업자번호" name="business_number" type="text" areaClass="w-3/4 pr-3" />
+                <Button onClick={checkBusinessNumber} type="button" className="w-1/4 mt-10 bg-neutral">확인</Button>
+              </div>
+              <LabelInput title="전체 동의" name="all_check" type="checkbox" areaClass="flex mb-4 mt-4 font-bold" />
+              <LabelInput name="term_agree" type="checkbox" areaClass="flex text-sm mb-2" > 서비스 이용약관 동의(필수)</LabelInput>
+              <LabelInput name="privacy_agree" type="checkbox" areaClass="flex text-sm mb-2" > 개인정보 수집 및 이용 동의(필수)</LabelInput>
+              <LabelInput name="receive_agree" type="checkbox" areaClass="flex text-sm mb-2" > 프로모션 정보 수신 동의(선택)</LabelInput>
+              <div className="flex ml-4 mb-4">
+                <LabelInput name="email_agree" type="checkbox" areaClass="flex text-sm mb-2" > 이메일</LabelInput>
+                <LabelInput name="sms_agree" type="checkbox" areaClass="flex text-sm ml-4 mb-2" > 문자</LabelInput>
+              </div>
+              <Button onClick={TryJoin} type="submit" className="w-full">가입하기</Button>
             </form>
           </VendorJoinContext.Provider>
         </div>

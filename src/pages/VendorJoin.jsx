@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import CenterHeader from "@/components/CenterHeader";
 import PasswordInput from "@/components/ui/PasswordInput";
 import LabelInput from "@/components/LabelInput";
+import LinkModal from "@/components/LinkModal";
 
 export const VendorJoinContext = createContext();
 
@@ -59,11 +60,35 @@ export default function VendorJoin() {
 
   const checkBusinessNumber = (e) => {
   }
+  const clickAllCheck = (e) => {
+    console.log(e.target.checked);
+    //$('input[type="checkbox"]').prop('checked', e.target.checked);
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = e.target.checked;
+    });
+  }
+
+  const clickCheck = (e) => {
+    if (!e.target.checed) {
+      document.querySelector('input[name="all_check"]').checked = false;
+    }
+    if (e.target.name == 'receive_agree') {
+      const checkes = document.querySelectorAll('.receive_agree input');
+      console.log(checkes)
+      checkes.forEach((checkbox) => {
+        checkbox.checked = e.target.checked;
+      });
+    }
+    if ((e.target.name == 'email_agree' || e.target.name == 'sms_agree') && !e.target.checed) {
+      document.querySelector('input[name="receive_agree"]').checked = false;
+    }
+  }
 
   return (
     <>
       <div className="flex justify-center">
-        <div className="center-content min-w-100 w-96 mb-8">
+        <div className="mb-8 center-content min-w-100 w-96">
           <CenterHeader />
           <VendorJoinContext.Provider value={{ validate_business_number }}>
             <form name="vendor_join_form">
@@ -77,13 +102,17 @@ export default function VendorJoin() {
                 <LabelInput title="사업자번호" name="business_number" type="text" areaClass="w-3/4 pr-3" />
                 <Button onClick={checkBusinessNumber} type="button" className="w-1/4 mt-10 bg-neutral">확인</Button>
               </div>
-              <LabelInput title="전체 동의" name="all_check" type="checkbox" areaClass="flex mb-4 mt-4 font-bold" />
-              <LabelInput name="term_agree" type="checkbox" areaClass="flex text-sm mb-2" > 서비스 이용약관 동의(필수)</LabelInput>
-              <LabelInput name="privacy_agree" type="checkbox" areaClass="flex text-sm mb-2" > 개인정보 수집 및 이용 동의(필수)</LabelInput>
-              <LabelInput name="receive_agree" type="checkbox" areaClass="flex text-sm mb-2" > 프로모션 정보 수신 동의(선택)</LabelInput>
-              <div className="flex ml-4 mb-4">
-                <LabelInput name="email_agree" type="checkbox" areaClass="flex text-sm mb-2" > 이메일</LabelInput>
-                <LabelInput name="sms_agree" type="checkbox" areaClass="flex text-sm ml-4 mb-2" > 문자</LabelInput>
+              <LabelInput title="전체 동의" onChange={clickAllCheck} name="all_check" type="checkbox" areaClass="flex mb-4 mt-4 font-bold all_check" />
+              <LabelInput name="term_agree" onChange={clickCheck} type="checkbox" areaClass="flex text-sm mb-2" >
+                <LinkModal modal_title="서비스 이용약관" modal_id="term" /> 동의(필수)
+              </LabelInput>
+              <LabelInput name="privacy_agree" onChange={clickCheck} type="checkbox" areaClass="flex text-sm mb-2" >
+                <LinkModal modal_title="개인정보 수집 및 이용" modal_id="privacy" /> 동의(필수)
+              </LabelInput>
+              <LabelInput name="receive_agree" onChange={clickCheck} type="checkbox" areaClass="flex text-sm mb-2" > 프로모션 정보 수신 동의(선택)</LabelInput>
+              <div className="flex mb-4 ml-4">
+                <LabelInput name="email_agree" onChange={clickCheck} type="checkbox" areaClass="flex text-sm mb-2 receive_agree" > 이메일</LabelInput>
+                <LabelInput name="sms_agree" onChange={clickCheck} type="checkbox" areaClass="flex text-sm ml-4 mb-2 receive_agree" > 문자</LabelInput>
               </div>
               <Button onClick={TryJoin} type="submit" className="w-full">가입하기</Button>
             </form>

@@ -2,6 +2,6 @@
 
 export default function LogoMini() {
     return (
-        <img src="./public/coggiri_logo2_100.png" />
+        <img src="./coggiri_logo2_100.png" />
     );
 }

@@ -23,13 +23,13 @@ const LabelInput = ({ name, title, type, value, onChange, errorMsg = '', childre
         onChange={onChange}
         name={name}
         ref={inputRef}
-        onFocus={() => inputRef.current.classList.add('input-primary')}
-        onBlur={() => inputRef.current.classList.remove('input-primary')}
+        onFocus={() => is_after_title ? '' : inputRef.current.classList.add('input-primary')}
+        onBlur={() => is_after_title ? '' : inputRef.current.classList.remove('input-primary')}
         pattern={pattern}
         placeholder={placeholder}
         defaultChecked={type === 'checkbox' ? value : undefined}
         value={value}
-        className={`${type === 'checkbox' ? 'mr-2' : 'input input-bordered w-full'} ${props.className}`} />
+        className={`${type === 'checkbox' ? 'mr-2' : 'input input-bordered w-full'} ${props.className ? props.className : ''}`} />
       {is_after_title ? (children ? children : title_html) : ''}
       {errorMsg ?
         <div className={`label pb-0 pt-1 ${errorMsg ? '' : 'invisible'} `}>

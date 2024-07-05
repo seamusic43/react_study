@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function LinkModal({ ...props }) {
   const modal_id = props.modal_id;
-  let is_get = false;
+  const [is_get, setIsGet] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const modal_title = props.modal_title;
   const [display_text, setDisplayText] = useState('');
@@ -12,14 +12,16 @@ export default function LinkModal({ ...props }) {
     if (is_get === false) {
       // get data from server
       setDisplayText('test' + modal_id);
-      is_get = true;
+      setIsGet(true);
     }
     console.log(is_get, display_text)
     setModalOpen(true);
   }
 
-  const closeModal = () => {
+  const closeModal = (e) => {
+    e.preventDefault();
     setModalOpen(false);
+    return false;
   }
   console.log(modal_id, modal_title, display_text, modalOpen)
 

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 
+// IconLink component , move link to icon click
 export default function IconLink({ children, to, icon, iconClass = '', overClass = '', linkClass = '' }) {
     const [isHovered, setIsHovered] = useState(false);
     const linkRef = useRef();

@@ -110,7 +110,6 @@ const menu_items = [
 ];
 const sel_link = '/store';
 const sel_menu = menu_items.find(item => item.submenus.find(submenu => submenu.link === sel_link));
-console.log(sel_menu.title);
 
 export default function LeftMenu() {
     return (

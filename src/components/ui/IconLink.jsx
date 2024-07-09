@@ -42,7 +42,6 @@ export default function IconLink({ children, to, icon, iconClass = '', overClass
         default:
             break;
     }
-    console.log(overClass, to, '=', isHovered);
     const icon_html = real_icon ? <span className={`${iconClass} material-symbols-rounded`} ref={spanRef}> {real_icon}</span > : "";
     return <Link to={to} ref={linkRef} className={`${linkClass} items-center`} onMouseOver={() => setIsHovered(true)} onMouseOut={() => setIsHovered(false)}>{children}{icon_html}</Link>
 }

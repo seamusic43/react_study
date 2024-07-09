@@ -1,10 +1,11 @@
 import MainCard from "@/components/MainCard";
 import ChangeColorText from "@/components/ChangeColorText";
 import ChangeColorBg from "@/components/ChangeColorBg";
-import { useCallback, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 
 export default function Main() {
+  const [is_loading, setIsLoading] = useState(true);
   const [display_time, setDisplayTime] = useState({
     join: '12:12',
     question: '13:13',
@@ -154,96 +155,156 @@ export default function Main() {
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer); // Cleanup timeout on component unmount
+  }, []);
+
+
   return (
     <>
       <div className="grid w-full grid-cols-3 h-28 hidden-text-visibility">
         <MainCard title="거래처 가입 신청" display_time={display_time.join} onRefresh={getJoinData}>
-          <div className="flex justify-between">
-            <span>미승인</span>
-            <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.join_count}</ChangeColorText>
-          </div>
-        </MainCard>
+          {is_loading ? (<div className="w-full h-4 skeleton" ></div>) : (
+            <div className="flex justify-between">
+              <span>미승인</span>
+              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.join_count}</ChangeColorText>
+            </div>
+          )}
+        </MainCard >
         <MainCard title="거래처 문의" display_time={display_time.question} onRefresh={getQuestionData}>
-          <div className="flex justify-between">
-            <span>미답변 / 답변완료</span>
-            <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.question.no} / {settingData.question.ok} </ChangeColorText>
-          </div>
+          {is_loading ? (<div className="w-full h-4 skeleton" ></div>) : (
+            <div className="flex justify-between">
+              <span>미답변 / 답변완료</span>
+              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.question.no} / {settingData.question.ok} </ChangeColorText>
+            </div>
+          )}
         </MainCard>
         <MainCard title="거래처 계정 현황" display_time={display_time.status} onRefresh={getAccountData}>
-          <div className="flex items-center justify-between">
-            <progress className="w-28 progress progress-primary" value={settingData.account.use} max={settingData.account.total}></progress>
-            <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.account.use} / {settingData.account.total} <span className="text-sm font-normal">사용중 </span></ChangeColorText>
-          </div>
+          {is_loading ? (<div className="w-full h-4 skeleton" ></div>) : (
+            <div className="flex items-center justify-between">
+              <progress className="w-28 progress progress-primary" value={settingData.account.use} max={settingData.account.total}></progress>
+              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.account.use} / {settingData.account.total} <span className="text-sm font-normal">사용중 </span></ChangeColorText>
+            </div>
+          )}
         </MainCard>
-      </div>
+      </div >
       <div className="grid w-full grid-cols-3"   >
         <MainCard title="발주 현황" display_time={display_time.order} className="h-48" onRefresh={getOrderData}>
           <div className="mb-4 text-xs text-gray-500">최근 30일, 발주건 기준</div>
           <div>
-            <div className="flex justify-between">
-              <span>결제확인</span>
-              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.order.pay}</ChangeColorText>
-            </div>
-            <div className="flex justify-between">
-              <span>출고준비</span>
-              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.order.ready}</ChangeColorText>
-            </div>
-            <div className="flex justify-between">
-              <span>출고완료</span>
-              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.order.done}</ChangeColorText>
-            </div>
+            {is_loading ? (
+              <>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-between">
+                  <span>결제확인</span>
+                  <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.order.pay}</ChangeColorText>
+                </div>
+                <div className="flex justify-between">
+                  <span>출고준비</span>
+                  <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.order.ready}</ChangeColorText>
+                </div>
+                <div className="flex justify-between">
+                  <span>출고완료</span>
+                  <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.order.done}</ChangeColorText>
+                </div>
+              </>
+            )}
           </div>
         </MainCard>
         <MainCard title="취소/반품/교환" display_time={display_time.cancel} className="h-48" onRefresh={getCancelData}>
           <div className="mb-4 text-xs text-gray-500">최근 30일, 발주건 기준</div>
           <div>
-            <div className="flex justify-between">
-              <span>출고중지요청</span>
-              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.cancel.stop}</ChangeColorText>
-            </div>
-            <div className="flex justify-between">
-              <span>반품접수</span>
-              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.cancel.refund}</ChangeColorText>
-            </div>
-            <div className="flex justify-between">
-              <span>교환접수</span>
-              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.cancel.exchange}</ChangeColorText>
-            </div>
+            {is_loading ? (
+              <>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-between">
+                  <span>출고중지요청</span>
+                  <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.cancel.stop}</ChangeColorText>
+                </div>
+                <div className="flex justify-between">
+                  <span>반품접수</span>
+                  <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.cancel.refund}</ChangeColorText>
+                </div>
+                <div className="flex justify-between">
+                  <span>교환접수</span>
+                  <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.cancel.exchange}</ChangeColorText>
+                </div>
+              </>
+            )}
           </div>
         </MainCard>
         <MainCard title="정산 현황" display_time={display_time.settlement} className="h-48" onRefresh={getSettlementData}>
           <div className="mb-4 text-xs text-gray-500">최근 3달 기준</div>
           <div>
-            {settingData.settlement.map((item, index) => (
-              <div key={index} className="flex justify-between">
-                <span>{item.date}</span>
-                <ChangeColorText color="green-500" >정산완료 <span className="font-bold">{item.ok}</span> / 미정산 <span className="font-bold">{item.none}</span></ChangeColorText>
-              </div>
-            ))}
+            {is_loading ? (
+              <>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+              </>
+            ) :
+              settingData.settlement.map((item, index) => (
+                <div key={index} className="flex justify-between">
+                  <span>{item.date}</span>
+                  <ChangeColorText color="green-500" >정산완료 <span className="font-bold">{item.ok}</span> / 미정산 <span className="font-bold">{item.none}</span></ChangeColorText>
+                </div>
+              ))
+            }
+
           </div>
         </MainCard>
 
       </div>
       <div className="grid w-full grid-cols-2">
         <MainCard title="거래처 공지사항" display_time={display_time.notice} onRefresh={getNoticeData}>
-          {settingData.notice.map((item, index) => (
-            <div key={index} className="flex justify-between">
-              <div>
-                {item.type === 'all' ? <span className="badge badge-neutral">전체</span> : <span className="badge badge-ghost">부분</span>}
-                <ChangeColorText color="green-500" className="ml-2">{item.title}</ChangeColorText>
-              </div>
-              <span className="text-xs text-gray-500">{item.date}</span>
-            </div>
-          ))}
-        </MainCard>
-        <div>
-          <MainCard title="코끼리 공지사항" display_time={display_time.system_notice} onRefresh={getSystemNoticeData}>
-            {settingData.system_notice.map((item, index) => (
+          {is_loading ? (
+            <>
+              <div className="w-full h-4 mb-3 skeleton" ></div>
+              <div className="w-full h-4 mb-3 skeleton" ></div>
+              <div className="w-full h-4 mb-3 skeleton" ></div>
+              <div className="w-full h-4 mb-3 skeleton" ></div>
+              <div className="w-full h-4 mb-3 skeleton" ></div>
+            </>
+          ) :
+            settingData.notice.map((item, index) => (
               <div key={index} className="flex justify-between">
-                <ChangeColorText color="green-500" className="ml-2">{item.title}</ChangeColorText>
+                <div>
+                  {item.type === 'all' ? <span className="badge badge-neutral">전체</span> : <span className="badge badge-ghost">부분</span>}
+                  <ChangeColorText color="green-500" className="ml-2">{item.title}</ChangeColorText>
+                </div>
                 <span className="text-xs text-gray-500">{item.date}</span>
               </div>
             ))}
+        </MainCard>
+        <div>
+          <MainCard title="코끼리 공지사항" display_time={display_time.system_notice} onRefresh={getSystemNoticeData}>
+            {is_loading ? (
+              <>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+                <div className="w-full h-4 mb-3 skeleton" ></div>
+              </>
+            ) :
+              settingData.system_notice.map((item, index) => (
+                <div key={index} className="flex justify-between">
+                  <ChangeColorText color="green-500" className="ml-2">{item.title}</ChangeColorText>
+                  <span className="text-xs text-gray-500">{item.date}</span>
+                </div>
+              ))}
           </MainCard>
           <div className="flex">
             <ChangeColorBg color="white" bg_color="green-500" className="w-1/2 m-2 text-center border-2 border-green-500 shadow-xl card bg-coggiri_link_bg">

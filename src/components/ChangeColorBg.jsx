@@ -13,12 +13,12 @@ export default function ChangeColorBg({ children, color = '', bg_color = '', cla
     setOriginal({ color: originalText || '', bg_color: originalBg || '' });
   }, []);
 
-  const ChangeMouseOut = useCallback((e) => {
+  const ChangeMouseOut = useCallback(() => {
     color && textRef.current.classList.remove('text-' + color);
     bg_color && textRef.current.classList.remove('bg-' + bg_color);
   }, [color, bg_color, original]);
 
-  const ChangeMouseOver = useCallback((e) => {
+  const ChangeMouseOver = useCallback(() => {
     color && textRef.current.classList.add('text-' + color);
     if (bg_color) {
       original.bg_color ? textRef.current.classList.remove(original.bg_color) : '';

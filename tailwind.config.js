@@ -64,6 +64,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        coggiri_link_bg: "#EEF1F9",
       },
       borderRadius: {
         lg: "var(--radius)",

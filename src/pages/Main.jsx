@@ -1,4 +1,5 @@
 import MainCard from "@/components/MainCard";
+import ChangeColorText from "@/components/ChangeColorText";
 import { useCallback, useState } from "react";
 
 
@@ -154,23 +155,23 @@ export default function Main() {
 
   return (
     <>
-      <div className="grid w-full grid-cols-3 h-28">
+      <div className="grid w-full grid-cols-3 h-28 hidden-text-visibility">
         <MainCard title="거래처 가입 신청" display_time={display_time.join} onRefresh={getJoinData}>
           <div className="flex justify-between">
             <span>미승인</span>
-            <span className="text-lg font-bold">{settingData.join_count}</span>
+            <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.join_count}</ChangeColorText>
           </div>
         </MainCard>
         <MainCard title="거래처 문의" display_time={display_time.question} onRefresh={getQuestionData}>
           <div className="flex justify-between">
             <span>미답변 / 답변완료</span>
-            <span className="text-lg font-bold">{settingData.question.no} / {settingData.question.ok} </span>
+            <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.question.no} / {settingData.question.ok} </ChangeColorText>
           </div>
         </MainCard>
         <MainCard title="거래처 계정 현황" display_time={display_time.status} onRefresh={getAccountData}>
           <div className="flex items-center justify-between">
             <progress className="w-28 progress progress-primary" value={settingData.account.use} max={settingData.account.total}></progress>
-            <span className="text-lg font-bold">{settingData.account.use} / {settingData.account.total} <span className="text-sm font-normal">사용중 </span></span>
+            <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.account.use} / {settingData.account.total} <span className="text-sm font-normal">사용중 </span></ChangeColorText>
           </div>
         </MainCard>
       </div>
@@ -180,15 +181,15 @@ export default function Main() {
           <div>
             <div className="flex justify-between">
               <span>결제확인</span>
-              <span className="text-lg font-bold">{settingData.order.pay}</span>
+              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.order.pay}</ChangeColorText>
             </div>
             <div className="flex justify-between">
               <span>출고준비</span>
-              <span className="text-lg font-bold">{settingData.order.ready}</span>
+              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.order.ready}</ChangeColorText>
             </div>
             <div className="flex justify-between">
               <span>출고완료</span>
-              <span className="text-lg font-bold">{settingData.order.done}</span>
+              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.order.done}</ChangeColorText>
             </div>
           </div>
         </MainCard>
@@ -197,15 +198,15 @@ export default function Main() {
           <div>
             <div className="flex justify-between">
               <span>출고중지요청</span>
-              <span className="text-lg font-bold">{settingData.cancel.stop}</span>
+              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.cancel.stop}</ChangeColorText>
             </div>
             <div className="flex justify-between">
               <span>반품접수</span>
-              <span className="text-lg font-bold">{settingData.cancel.refund}</span>
+              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.cancel.refund}</ChangeColorText>
             </div>
             <div className="flex justify-between">
               <span>교환접수</span>
-              <span className="text-lg font-bold">{settingData.cancel.exchange}</span>
+              <ChangeColorText color="green-500" className="text-lg font-bold">{settingData.cancel.exchange}</ChangeColorText>
             </div>
           </div>
         </MainCard>
@@ -215,7 +216,7 @@ export default function Main() {
             {settingData.settlement.map((item, index) => (
               <div key={index} className="flex justify-between">
                 <span>{item.date}</span>
-                <span className="">정산완료 <span className="font-bold">{item.ok}</span> / 미정산 <span className="font-bold">{item.none}</span></span>
+                <ChangeColorText color="green-500" >정산완료 <span className="font-bold">{item.ok}</span> / 미정산 <span className="font-bold">{item.none}</span></ChangeColorText>
               </div>
             ))}
           </div>
@@ -228,7 +229,7 @@ export default function Main() {
             <div key={index} className="flex justify-between">
               <div>
                 {item.type === 'all' ? <span className="badge badge-neutral">전체</span> : <span className="badge badge-ghost">부분</span>}
-                <span className="ml-2">{item.title}</span>
+                <ChangeColorText color="green-500" className="ml-2">{item.title}</ChangeColorText>
               </div>
               <span className="text-xs text-gray-500">{item.date}</span>
             </div>
@@ -238,18 +239,18 @@ export default function Main() {
           <MainCard title="코끼리 공지사항" display_time={display_time.system_notice} onRefresh={getSystemNoticeData}>
             {settingData.system_notice.map((item, index) => (
               <div key={index} className="flex justify-between">
-                <span className="ml-2">{item.title}</span>
+                <ChangeColorText color="green-500" className="ml-2">{item.title}</ChangeColorText>
                 <span className="text-xs text-gray-500">{item.date}</span>
               </div>
             ))}
           </MainCard>
           <div className="flex">
-            <div className="m-2 text-center border-2 border-green-500 shadow-xl card bg-coggiri_link_bg w-1/2">
-              <div className="py-4 px-2 inline-block justity-center card-body">코끼리 SCM<span className="material-symbols-rounded text-gray-400">open_in_new</span>
+            <div className="w-1/2 m-2 text-center border-2 border-green-500 shadow-xl card bg-coggiri_link_bg">
+              <div className="inline-block px-2 py-4 justity-center card-body">코끼리 SCM<span className="text-gray-400 material-symbols-rounded">open_in_new</span>
               </div>
             </div>
-            <div className="m-2 text-center border-2 border-green-500 shadow-xl card bg-coggiri_link_bg w-1/2">
-              <div className="py-4 px-2 inline-block justity-center card-body">코끼리 SCM<span className="material-symbols-rounded text-gray-400">open_in_new</span>
+            <div className="w-1/2 m-2 text-center border-2 border-green-500 shadow-xl card bg-coggiri_link_bg">
+              <div className="inline-block px-2 py-4 justity-center card-body">코끼리 SCM<span className="text-gray-400 material-symbols-rounded">open_in_new</span>
               </div>
             </div>
           </div>

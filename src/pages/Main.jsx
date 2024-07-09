@@ -1,5 +1,6 @@
 import MainCard from "@/components/MainCard";
 import ChangeColorText from "@/components/ChangeColorText";
+import ChangeColorBg from "@/components/ChangeColorBg";
 import { useCallback, useState } from "react";
 
 
@@ -245,14 +246,14 @@ export default function Main() {
             ))}
           </MainCard>
           <div className="flex">
-            <div className="w-1/2 m-2 text-center border-2 border-green-500 shadow-xl card bg-coggiri_link_bg">
+            <ChangeColorBg color="white" bg_color="green-500" className="w-1/2 m-2 text-center border-2 border-green-500 shadow-xl card bg-coggiri_link_bg">
               <div className="inline-block px-2 py-4 justity-center card-body">코끼리 SCM<span className="text-gray-400 material-symbols-rounded">open_in_new</span>
               </div>
-            </div>
-            <div className="w-1/2 m-2 text-center border-2 border-green-500 shadow-xl card bg-coggiri_link_bg">
+            </ChangeColorBg>
+            <ChangeColorBg color="white" bg_color="green-500" className="w-1/2 m-2 text-center border-2 border-green-500 shadow-xl card bg-coggiri_link_bg">
               <div className="inline-block px-2 py-4 justity-center card-body">코끼리 SCM<span className="text-gray-400 material-symbols-rounded">open_in_new</span>
               </div>
-            </div>
+            </ChangeColorBg>
           </div>
         </div>
       </div>

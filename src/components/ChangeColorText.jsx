@@ -5,11 +5,11 @@ import { useRef, useCallback } from "react";
 export default function ChangeColorText({ children, color = '', className = '' }) {
   const textRef = useRef();
 
-  const RemoveTextColor = useCallback((e) => {
+  const RemoveTextColor = useCallback(() => {
     textRef.current.classList.remove('text-' + color);
   }, [color]);
 
-  const AddTextColor = useCallback((e) => {
+  const AddTextColor = useCallback(() => {
     textRef.current.classList.add('text-' + color);
   }, [color]);
 

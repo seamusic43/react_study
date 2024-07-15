@@ -10,6 +10,7 @@ import CommonLayout from './pages/CommonLayout.jsx'
 import FindPassword from './pages/FindPassword.jsx'
 import FindId from './pages/FindId.jsx'
 import ResetPassword from './pages/ResetPassword.jsx'
+import Toast from './components/Toast.jsx'
 
 const routes = [{
   path: '/',
@@ -51,5 +52,6 @@ const router = createBrowserRouter(routes)
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <Toast />
   </React.StrictMode>,
 )

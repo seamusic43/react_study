@@ -1,5 +1,20 @@
 import { clsx } from "clsx";
 
+function getAlertCss(type) {
+  switch (type) {
+    case 'info':
+      return 'bg-blue-500 text-white';
+    case 'success':
+      return 'bg-green-500 text-white';
+    case 'warning':
+      return 'bg-yellow-300 text-black';
+    case 'danger':
+      return 'bg-red-500 text-white';
+    default:
+      return 'bg-gray-300 text-black';
+  }
+}
+
 export default function ToastContent({ list, position, className = '' }) {
   let position_css = '';
   switch (position) {
@@ -22,7 +37,7 @@ export default function ToastContent({ list, position, className = '' }) {
     <div className={`${position_css} toast font-normal tracking-wide leading-5 select-none`}>
       {/* Position-specific CSS Class */}
       {list.map(item => (
-        <div key={item.id} className={`alert-${item.type} alert `}>
+        <div role="alert" key={item.id} className={`alert-${item.type} ${getAlertCss(item.type)} alert  animate-fade-left animate-once animate-duration-[3000ms] animate-ease-in-out animate-normal animate-fill-forwards `}>
           {item.content}
         </div>
       ))}

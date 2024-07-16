@@ -63,7 +63,7 @@ export default function Main() {
     const nowTime = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
     const chkTime = display_time[chkType];
     if (chkTime == nowTime) {
-      toast('1분 뒤에 새로고침이 가능합니다.', { type: 'error', position: 'top-right', autoClose: 1800 });
+      toast('1분 뒤에 새로고침이 가능합니다.', { type: 'error', position: 'top-right', autoClose: 119800 });
       toast('2분 뒤에 새로고침이 가능합니다.', { type: 'warning', position: 'top-left', autoClose: 1500 });
       toast('3분 뒤에 새로고침이 가능합니다.', { type: 'success', position: 'bottom-left', autoClose: 1200 });
       toast('4분 뒤에 새로고침이 가능합니다.', { type: 'info', position: 'bottom-right', autoClose: 2000 });

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import NotFound from './pages/404.jsx'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Login from './pages/common/Login.jsx'
 import VendorJoin from './pages/VendorJoin.jsx'
@@ -11,7 +11,17 @@ import FindPassword from './pages/FindPassword.jsx'
 import FindId from './pages/FindId.jsx'
 import ResetPassword from './pages/ResetPassword.jsx'
 import Toast from './components/Toast.jsx'
+import RoutesSetup from './routes/RoutesSetup.jsx'
 
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <RoutesSetup />
+    </BrowserRouter>
+    <Toast />
+  </React.StrictMode>,
+)
+/*
 const routes = [{
   path: '/',
   element: <Home />,
@@ -55,3 +65,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Toast />
   </React.StrictMode>,
 )
+  */

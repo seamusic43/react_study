@@ -2,11 +2,17 @@ import Logo from '@/components/Logo';
 import LogoMini from '@/components/LogoMini';
 import Icon from '@/components/ui/Icon';
 import IconLink from '@/components/ui/IconLink';
-import IconDrop from '@/components/ui/IconDrop';
 import { Link } from 'react-router-dom';
 import { IconMenu } from '@/components/ui/IconMenu';
+import { useNavigate } from 'react-router-dom';
 
 export default function CommonHeader() {
+    const navigate = useNavigate();
+    const clickLogout = () => {
+        console.log('logout');
+        localStorage.removeItem('token');
+        navigate('/coggiri_login'); // 페이지 이동이 안되는데?? 
+    }
     return (
         <header className="header mx-xl">
             <div className="container">
@@ -54,7 +60,7 @@ export default function CommonHeader() {
                                     <li className="py-2"><Link to=''>계정 정보</Link></li>
                                     <li className="py-2"><Link to='' >사용 서비스</Link></li>
                                     <li className="py-2"><Link to='' >결제 내역</Link></li>
-                                    <li className='py-4 border-t-2'><Link to='' >로그 아웃</Link></li>
+                                    <li className='py-4 border-t-2'><Link onClick={clickLogout} >로그 아웃</Link></li>
                                 </ul>
                             </IconMenu>
                         </div>

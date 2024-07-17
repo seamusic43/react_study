@@ -1,6 +1,6 @@
 import { useCallback, useReducer } from 'react';
 import { validate, error_display } from './common/reducer_User';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PasswordInput from '@/components/ui/PasswordInput';
 import { Button } from '@/components/ui/button';
 import CenterHeader from '@/components/CenterHeader';
@@ -8,6 +8,7 @@ import LabelInput from '@/components/LabelInput';
 
 
 export default function MainLogin() {
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(validate, {
     login_id: '',
     password: '',
@@ -33,6 +34,8 @@ export default function MainLogin() {
     console.log('TryLogin');
     console.log(state);
     // API Call to login
+    localStorage.setItem('token', '1234');
+    navigate('/');
 
   }, [state]);
 

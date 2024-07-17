@@ -12,9 +12,10 @@ const error_display = (state, action) => {
 }
 
 const validate = (state, action) => {
+    console.log('Validate:', state, action);
     switch (action.type) {
         case 'set_value':
-            if (action.name in state.receive_agree) {
+            if (state.receive_agree && action.name in state.receive_agree) {
                 return {
                     ...state,
                     receive_agree: {

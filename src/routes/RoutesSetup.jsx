@@ -9,15 +9,17 @@ import Main from '../pages/Main';
 import NotFound from '../pages/404';
 import CommonLayout from '../pages/CommonLayout';
 import RequireAuth from './Auth/RequireAuth';
+import JoinSetting from '../pages/JoinSetting';
 
 
 export default function RoutesSetup() {
   return (
     <Routes>
       <Route path='/' element={<CommonLayout />} >
+        <Route index element={<RequireAuth><Main /></RequireAuth>} />
         <Route path="/login" element={<Login />} />
         <Route path="/vendor_join" element={<VendorJoin />} />
-        <Route index element={<RequireAuth><Main /></RequireAuth>} />
+        <Route path="/join_setting" element={<JoinSetting />} />
       </Route>
       <Route path="/coggiri_login" element={<MainLogin />} />
       <Route path="/find_pw" element={<FindPassword />} />

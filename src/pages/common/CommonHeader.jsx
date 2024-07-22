@@ -11,7 +11,7 @@ export default function CommonHeader() {
     const clickLogout = () => {
         console.log('logout');
         localStorage.removeItem('token');
-        navigate('/coggiri_login'); // 페이지 이동이 안되는데?? 
+        navigate('/coggiri_login'); // 페이지 이동이 안되는데??
     }
     return (
         <header className="header mx-xl">

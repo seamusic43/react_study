@@ -11,8 +11,8 @@ export default function RequireAuth({ children }) {
     } else {
       setIsLogin(false);
     }
+    console.log("isLogin", isLogin);
     if (!isLogin) {
-      console.log("isLogin", isLogin);
       navigate('/coggiri_login');
     }
   }, [isLogin, navigate]);

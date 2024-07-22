@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const menu_items = [
     {
@@ -6,19 +8,19 @@ const menu_items = [
         submenus: [
             {
                 title: '거래처 가입 설정',
-                link: '/parent',
+                link: '/join_setting',
             },
             {
                 title: '거래처 관리',
-                link: '/parent',
+                link: '/',
             },
             {
                 title: '문의 관리',
-                link: '/notice',
+                link: '/',
             },
             {
                 title: '공지 관리',
-                link: '/parent',
+                link: '/',
             },
         ]
     },
@@ -28,32 +30,32 @@ const menu_items = [
         submenus: [
             {
                 title: '거래처별 발주현황',
-                link: '/parent',
+                link: '/',
             },
             {
                 title: '통합 발주 관리',
-                link: '/parent',
+                link: '/',
 
             },
             {
                 title: '출고중지 요청',
-                link: '/parent',
+                link: '/',
             },
             {
                 title: '교환 관리',
-                link: '/parent',
+                link: '/',
             },
             {
                 title: '반품 관리',
-                link: '/parent',
+                link: '/',
             },
             {
                 title: '개별 발주 등록',
-                link: '/parent',
+                link: '/',
             },
             {
                 title: '엑셀 발주 등록',
-                link: '/parent',
+                link: '/',
             },
         ]
     },
@@ -67,7 +69,7 @@ const menu_items = [
             },
             {
                 title: '거래처별 정산 관리',
-                link: '/parent',
+                link: '/',
             },
         ]
     },
@@ -95,7 +97,7 @@ const menu_items = [
         submenus: [
             {
                 title: '스토어 홈',
-                link: '/store',
+                link: '/',
             },
             {
                 title: '사용 서비스',
@@ -108,10 +110,20 @@ const menu_items = [
         ]
     },
 ];
-const sel_link = '/store';
-const sel_menu = menu_items.find(item => item.submenus.find(submenu => submenu.link === sel_link));
 
 export default function LeftMenu() {
+    const [select_link, setSelectLink] = useState('/');
+    const [select_menu, setSelectMenu] = useState('');
+    const setMenu = () => {
+        const chk_menu = menu_items.find(item => item.submenus.find(submenu => submenu.link === select_link));
+        console.log(chk_menu.icon);
+        setSelectMenu(chk_menu.icon);
+    }
+    const clickLink = (link) => {
+        setSelectLink(link);
+        //setMenu();
+    }
+    //setMenu();
     return (
         <div className="min-h-full w-60">
             <div id="menu_title">
@@ -125,19 +137,19 @@ export default function LeftMenu() {
             <div id="menu_list">
                 <ul className="w-56 menu ">
                     {menu_items.map((item, index) => {
-                        const is_selected = item === sel_menu ? 'open' : null;
                         return (
                             <li key={index}>
-                                <details open={is_selected}>
+                                <details open={item.icon === select_menu ? 'open' : null}>
                                     <summary>
                                         <span className="material-symbols-rounded">{item.icon}</span>
                                         {item.title}
                                     </summary>
                                     <ul>
                                         {item.submenus && item.submenus.map((submenu, subindex) => {
-                                            const is_selected = submenu.link === sel_link ? 'active' : null;
                                             return submenu.title ? (
-                                                <li key={index + '_' + subindex}><a className={is_selected}>{submenu.title}</a></li>
+                                                <li key={index + '_' + subindex}>
+                                                    <Link to={submenu.link} onClick={() => clickLink(submenu.link)} className={select_link === submenu.link ? 'active' : ''}>{submenu.title}</Link>
+                                                </li>
                                             ) : null;
                                         })}
                                     </ul>

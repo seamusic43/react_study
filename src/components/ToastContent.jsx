@@ -37,9 +37,9 @@ export default function ToastContent({ list, position, className = '' }) {
     <div className={`${position_css} toast font-normal tracking-wide leading-5 select-none`}>
       {/* Position-specific CSS Class */}
       {list.map(item => (
-        <div role="alert" key={item.id} className={`alert-${item.type} ${getAlertCss(item.type)} alert  animate-fade-left animate-once animate-duration-[3000ms] animate-ease-in-out animate-normal animate-fill-forwards `}>
-          {item.content}
-        </div>
+        <div role="alert" key={item.id} className={`alert-${item.type} ${getAlertCss(item.type)} alert  animate-fade-left animate-once animate-duration-[3000ms] animate-ease-in-out animate-normal animate-fill-forwards `}
+          dangerouslySetInnerHTML={{ __html: item.content }}
+        />
       ))}
     </div>
   );

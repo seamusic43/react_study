@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import useToast from "../components/useToast";
 import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import CustomDroppable from "@/components/ui/CustomDroppable";
 
 export default function JoinSetting() {
   const [open_createModal, setOpen_createModal] = useState(false);
@@ -10,7 +12,8 @@ export default function JoinSetting() {
   const fileRef = useRef();
   const [selectedFile, setSelectedFile] = useState('');
   const [joinItems, setJoinItems] = useState([
-    { id: 1, title: 'Name', display_name: '이름', required: 'YES', used: 'YES' },
+    { id: "1", name: 'name', title: 'Name', display_name: '이름', required: 'YES', used: 'YES', deleted: 'YES' },
+    { id: "2", name: 'company_name', title: 'Company_Name', display_name: '회사명', required: 'YES', used: 'YES', deleted: 'NO' },
   ]);
   const clipCopy = () => {
     const copyText = document.getElementById("join_link");
@@ -25,13 +28,37 @@ export default function JoinSetting() {
   const closeModalOpen = () => {
     setOpen_createModal(false);
   };
+  const onDragEnd = useCallback((result) => {
+    console.log('onDragEnd funcion in', result.destination);
+    if (!result.destination) {
+      return;
+    }
+    const items = Array.from(joinItems);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setJoinItems(items);
+  }, [joinItems]);
+
+  const deleteItem = (item_id) => {
+    const select = joinItems.find(item => item.id === item_id);
+    if (select.used === 'YES') {
+      alert('사용중인 항목은 삭제할 수 없습니다.');
+      return false;
+    } else {
+      const items = joinItems.filter(item => item.id != item_id);
+      setJoinItems(items);
+    }
+  };
+
   const addItem = () => {
     const itemForm = document.getElementById('joinItemForm');
     const title = itemForm.title.value;
+    const name = itemForm.title.value.replace(/ /g, '_').toLowerCase();
     const display_name = itemForm.display_name.value;
     const required = itemForm.required.value;
     const used = itemForm.used.value;
-    setJoinItems([...joinItems, { id: joinItems.length + 1, title: title, display_name: display_name, required: required, used: used }]);
+    const deleted = 'YES';
+    setJoinItems([...joinItems, { id: String(joinItems.length + 1), name: name, title: title, display_name: display_name, required: required, used: used, deleted: deleted }]);
     setOpen_createModal(false);
   }
   const handleFileChange = (event) => {
@@ -102,25 +129,35 @@ export default function JoinSetting() {
                   <th className="item_delete">삭제</th>
                 </tr>
               </thead>
-              <tbody className="item ">
-                {joinItems.map((item, index) => (
-                  <tr key={index} className="border ">
-                    <td className="item_drag">
-                      <span className="material-symbols-rounded">
-                        drag_handle
-                      </span>
-                    </td>
-                    <td className="item_title">{item.title}</td>
-                    <td className="item_type">{item.display_name}</td>
-                    <td className="item_required">{item.required == 'YES' ? '필수' : '선택'}</td>
-                    <td className="item_use">{item.used == 'YES' ? '사용' : '미사용'}</td>
-                    <td className="item_delete"><span className="material-symbols-rounded">
-                      disabled_by_default
-                    </span></td>
-                  </tr>
-                ))
-                }
-              </tbody>
+              <DragDropContext onDragEnd={onDragEnd}>
+                <CustomDroppable droppableId="joinItems">
+                  {(provided) => (
+                    <tbody ref={provided.innerRef} {...provided.droppableProps}>
+                      {joinItems.map((item, index) => (
+                        <Draggable key={item.id} draggableId={item.name} index={index} >
+                          {(provided, snapshot) => (
+                            <tr key={item.id} className={`${snapshot.isDragging ? 'bg-blue' : ''} border select-none`} {...provided.dragHandleProps} id={item.name} data-id={item.id} ref={provided.innerRef} {...provided.draggableProps}>
+                              <td className="item_drag">
+                                <span className="material-symbols-rounded">
+                                  drag_handle
+                                </span>
+                              </td>
+                              <td className="item_title">{item.title}</td>
+                              <td className="item_type">{item.display_name}</td>
+                              <td className="item_required">{item.required == 'YES' ? '필수' : '선택'}</td>
+                              <td className="item_use">{item.used == 'YES' ? '사용' : '미사용'}</td>
+                              <td className={`item_delete ${item.deleted == 'YES' ? '' : 'text-gray-400'}`}><span onClick={item.deleted === 'YES' ? () => deleteItem(item.id) : undefined} className="material-symbols-rounded">
+                                disabled_by_default
+                              </span></td>
+                            </tr>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </tbody>
+                  )}
+                </CustomDroppable>
+              </DragDropContext>
             </table>
           </div>
           <div className="terms_area">
@@ -138,13 +175,14 @@ export default function JoinSetting() {
           <Button className="w-full mt-4">저장하기</Button>
 
         </div>
-        <div className="w-1/2 p-4 final_area">
-          <span className="text-sm font-bold">가입 페이지 미리보기</span>
+        <div className="block w-1/2 p-4 final_area">
+          <span className="text-sm font-bold">가입 페이지 미리보기</span><br />
           <span className="text-xs text-gray-300"> 아래 이미지를 참고하여 가입 페이지를 만들어보세요.</span>
 
         </div>
       </div>
-      {open_createModal &&
+      {
+        open_createModal &&
         <dialog open={open_createModal} className="modal">
           <div className="modal-box">
             <div className="modal-header">
